@@ -1,4 +1,4 @@
-import { useTimeout } from '@fuse/hooks';
+import { useTimeout } from '../../../@fuse/hooks';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { useState } from 'react';

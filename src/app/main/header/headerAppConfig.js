@@ -1,7 +1,7 @@
 import HeaderApp from "./HeaderApp";
 
-const HeaderAppConfig = [
+const headerAppConfig = [
     HeaderApp
 ]
 
-export default HeaderAppConfig
+export default headerAppConfig

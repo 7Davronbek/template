@@ -1,9 +1,9 @@
-import { useTimeout } from '../../../@fuse/hooks';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import clsx from 'clsx';
 import Box from '@mui/material/Box';
+import { useTimeout } from '../../hooks';
 
 function FuseLoading(props) {
   const [showLoading, setShowLoading] = useState(!props.delay);

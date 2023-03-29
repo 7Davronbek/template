@@ -1,6 +1,6 @@
-const { lazy } = require("react");
+const { lazy } = require('react');
 
-const AnalyticsDashboardApp = lazy(() => import("./AnalyticsDashboardApp"));
+const AnalyticsDashboardApp = lazy(() => import('./AnalyticsDashboardApp'));
 
 const AnalyticsDashboardAppConfig = {
   settings: {
@@ -11,10 +11,10 @@ const AnalyticsDashboardAppConfig = {
 
   routes: [
     {
-      path: "dashboard/analytics",
+      path: 'dashboard/analytics',
       element: <AnalyticsDashboardApp />,
     },
   ],
 };
 
-export default AnalyticsDashboardAppConfig
+export default AnalyticsDashboardAppConfig;

@@ -1,11 +1,9 @@
-import React from 'react'
-
-const AnalyticsDashboardAppHeader = () => {
+function AnalyticsDashboardAppHeader() {
   return (
     <div>
-       <h5>Analytics Dashboard AppHeader</h5>
+      <h5>Analytics Dashboard AppHeader</h5>
     </div>
-  )
+  );
 }
 
-export default AnalyticsDashboardAppHeader
+export default AnalyticsDashboardAppHeader;

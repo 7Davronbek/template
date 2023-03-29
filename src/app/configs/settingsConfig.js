@@ -1,13 +1,13 @@
 const settingsConfig = {
   layout: {
-    style: "layout1",
+    style: 'layout1',
     config: {},
   },
   customScrollbars: true,
 
-  defaultAuth: ["admin"],
+  defaultAuth: ['admin'],
 
-  loginRedirectUrl: "/",
+  loginRedirectUrl: '/',
 };
 
 export default settingsConfig;

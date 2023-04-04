@@ -15,15 +15,15 @@ function AuthProvider({ children }) {
 
   useEffect(() => {
     jwtService.on('onAutoLogin', () => {
-      dispatch(showMessage({ message: 'Signing in with JWT' }));
-
+      // dispatch(showMessage({ message: 'Signing in with JWT' }));
+      // dispatch(showMessage({ message: 'Signing in with JWT' }));
       /**
        * Sign in and retrieve user data with stored token
        */
       jwtService
         .signInWithToken()
         .then((user) => {
-          success(user, 'Signed in with JWT');
+          success(user);
         })
         .catch((error) => {
           pass(error.message);
@@ -31,11 +31,11 @@ function AuthProvider({ children }) {
     });
 
     jwtService.on('onLogin', (user) => {
-      success(user, 'Signed in');
+      success(user, ''); // signed in
     });
 
     jwtService.on('onLogout', () => {
-      pass('Signed out');
+      // pass('Signed out');
 
       dispatch(logoutUser());
     });
@@ -53,6 +53,7 @@ function AuthProvider({ children }) {
     jwtService.init();
 
     function success(user, message) {
+      console.log(message);
       if (message) {
         dispatch(showMessage({ message }));
       }

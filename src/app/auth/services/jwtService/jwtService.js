@@ -64,45 +64,51 @@ class JwtService extends FuseUtils.EventEmitter {
   signInWithEmailAndPassword = (email, password) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(jwtServiceConfig.signIn, {
-          data: {
-            email,
-            password,
-          },
+        .post(jwtServiceConfig.signIn, {
+          email,
+          password,
         })
         .then((response) => {
-          if (response.data.user) {
-            this.setSession(response.data.access_token);
-            resolve(response.data.user);
-            this.emit('onLogin', response.data.user);
+          // console.log(response.data.user);
+          const USER = {
+            role: 'admin',
+            data: {
+              displayName: 'Aziz',
+              photoURL: 'assets/images/avatars/brian-hughes.jpg',
+              email: 'admin@fusetheme.com',
+            },
+          };
+          if (response.data.data && response.data.succeeded) {
+            console.log(response.data.data.token);
+            this.setSession(response.data.data.token);
+            resolve();
+            this.emit('onLogin', USER);
           } else {
-            reject(response.data.error);
+            reject(response.data.messages);
           }
+        })
+        .catch((error) => {
+          console.log(error); 
         });
     });
   };
 
   signInWithToken = () => {
     return new Promise((resolve, reject) => {
-      axios
-        .get(jwtServiceConfig.accessToken, {
+      if (this.isAuthTokenValid(this.getAccessToken())) {
+        const decoded = jwtDecode(this.getAccessToken());
+        resolve({
+          role: 'admin',
           data: {
-            access_token: this.getAccessToken(),
+            displayName: decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'],
+            photoURL: 'assets/images/avatars/brian-hughes.jpg',
+            email: 'admin@fusetheme.com',
           },
-        })
-        .then((response) => {
-          if (response.data.user) {
-            this.setSession(response.data.access_token);
-            resolve(response.data.user);
-          } else {
-            this.logout();
-            reject(new Error('Failed to login with token.'));
-          }
-        })
-        .catch((error) => {
-          this.logout();
-          reject(new Error('Failed to login with token.'));
         });
+      } else {
+        this.logout();
+        reject(new Error('Failed to login with token.'));
+      }
     });
   };
 
@@ -132,6 +138,7 @@ class JwtService extends FuseUtils.EventEmitter {
       return false;
     }
     const decoded = jwtDecode(access_token);
+    console.log(decoded);
     const currentTime = Date.now() / 1000;
     if (decoded.exp < currentTime) {
       console.warn('access token expired');

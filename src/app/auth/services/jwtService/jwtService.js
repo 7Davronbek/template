@@ -79,7 +79,7 @@ class JwtService extends FuseUtils.EventEmitter {
             },
           };
           if (response.data.data && response.data.succeeded) {
-            console.log(response.data.data.token);
+            // console.log(response.data.data);
             this.setSession(response.data.data.token);
             resolve();
             this.emit('onLogin', USER);
@@ -88,7 +88,7 @@ class JwtService extends FuseUtils.EventEmitter {
           }
         })
         .catch((error) => {
-          console.log(error); 
+          console.log(error);
         });
     });
   };
@@ -138,7 +138,7 @@ class JwtService extends FuseUtils.EventEmitter {
       return false;
     }
     const decoded = jwtDecode(access_token);
-    console.log(decoded);
+    // console.log(decoded);
     const currentTime = Date.now() / 1000;
     if (decoded.exp < currentTime) {
       console.warn('access token expired');

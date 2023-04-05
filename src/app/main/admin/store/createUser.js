@@ -1,20 +1,33 @@
 /* eslint-disable prettier/prettier */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+// import { format } from 'date-fns'
 
-export const getUsersList = createAsyncThunk(
-  "adminOperation/list/getUsersList",
-  async () => {
-    const response = await axios.get("api/identity/user");
-    const data = await response?.data?.data;
+export const createUser = createAsyncThunk(
+  "adminOperation/create/createUser",
+  async (params) => {
+    const response = await axios.post(
+      "http://192.168.90.154:443/api/identity/user/Register",
+      {
+        firstName: "string",
+        lastName: "string",
+        userName: "string",
+        phoneNumber: "string",
+        activateUser: true,
+        autoConfirmEmail: true,
+        ...params,
+      }
+    );
+
+    const data = await response?.data;
 
     return data;
   }
 );
 
 // ALL USABLE DATA STORED AT [entities] FIELD
-const listUsersSlice = createSlice({
-  name: "adminOperation/list",
+const createUserSlice = createSlice({
+  name: "adminOperation/create",
   initialState: {
     entities: [],
     loading: "idle",
@@ -25,13 +38,13 @@ const listUsersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getUsersList.pending, (state, action) => {
+      .addCase(createUser.pending, (state, action) => {
         if (state.loading === "idle") {
           state.loading = "pending";
           state.currentRequestId = action.meta.requestId;
         }
       })
-      .addCase(getUsersList.fulfilled, (state, action) => {
+      .addCase(createUser.fulfilled, (state, action) => {
         const { requestId } = action.meta;
         if (
           state.loading === "pending" &&
@@ -43,7 +56,7 @@ const listUsersSlice = createSlice({
           state.currentRequestId = undefined;
         }
       })
-      .addCase(getUsersList.rejected, (state, action) => {
+      .addCase(createUser.rejected, (state, action) => {
         const { requestId } = action.meta;
         if (
           state.loading === "pending" &&
@@ -57,6 +70,6 @@ const listUsersSlice = createSlice({
   },
 });
 
-export const selectUsersList = ({ adminOperation }) => adminOperation.list;
+export const selectCreateState = ({ adminOperation }) => adminOperation.create;
 
-export default listUsersSlice.reducer;
+export default createUserSlice.reducer;

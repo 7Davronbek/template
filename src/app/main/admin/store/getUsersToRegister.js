@@ -1,20 +1,24 @@
 /* eslint-disable prettier/prettier */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+// import { format } from 'date-fns'
 
-export const getUsersList = createAsyncThunk(
-  "adminOperation/list/getUsersList",
+export const getUsersToRegister = createAsyncThunk(
+  "adminOperation/listregister/getUsersToRegister",
   async () => {
-    const response = await axios.get("api/identity/user");
-    const data = await response?.data?.data;
+    const response = await axios.post(
+      "http://192.168.90.154:443/api/personal/PersonalData/PersonalEmployees"
+    );
+
+    const data = await response?.data;
 
     return data;
   }
 );
 
 // ALL USABLE DATA STORED AT [entities] FIELD
-const listUsersSlice = createSlice({
-  name: "adminOperation/list",
+const listRegisterUsersSlice = createSlice({
+  name: "adminOperation/listregister",
   initialState: {
     entities: [],
     loading: "idle",
@@ -25,13 +29,13 @@ const listUsersSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getUsersList.pending, (state, action) => {
+      .addCase(getUsersToRegister.pending, (state, action) => {
         if (state.loading === "idle") {
           state.loading = "pending";
           state.currentRequestId = action.meta.requestId;
         }
       })
-      .addCase(getUsersList.fulfilled, (state, action) => {
+      .addCase(getUsersToRegister.fulfilled, (state, action) => {
         const { requestId } = action.meta;
         if (
           state.loading === "pending" &&
@@ -43,7 +47,7 @@ const listUsersSlice = createSlice({
           state.currentRequestId = undefined;
         }
       })
-      .addCase(getUsersList.rejected, (state, action) => {
+      .addCase(getUsersToRegister.rejected, (state, action) => {
         const { requestId } = action.meta;
         if (
           state.loading === "pending" &&
@@ -57,6 +61,7 @@ const listUsersSlice = createSlice({
   },
 });
 
-export const selectUsersList = ({ adminOperation }) => adminOperation.list;
+export const selectRegisterUsersList = ({ adminOperation }) =>
+  adminOperation.listregister;
 
-export default listUsersSlice.reducer;
+export default listRegisterUsersSlice.reducer;

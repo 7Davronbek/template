@@ -9,11 +9,11 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { useSelector, useDispatch } from 'react-redux';
-import _ from 'lodash';
 import { Chip, Skeleton, Typography } from '@mui/material';
 import { useEffect } from 'react';
+import _ from 'lodash';
 import reducer from './store';
-import { selectUsersList, getUsersList } from './store/getUsersList';
+import { getUsersList } from './store/getUsersList';
 import { getSingleUserRole } from './store/singleUserRolesSlice';
 
 const headerParams = {
@@ -43,10 +43,9 @@ function TableSkeleton(props) {
 
 function AccountingDashboardApp(props) {
   const [page, setPage] = React.useState(0);
-  const usersList = useSelector(selectUsersList);
+  const usersList = useSelector((state) => state.adminOperation.userList);
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
 
-  console.log(usersList)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -81,11 +80,12 @@ function AccountingDashboardApp(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {!_.isEmpty(usersList?.entities) ? (
+            {!_.isEmpty(usersList?.entities) ? (
               usersList?.entities
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => (
                   <TableRow
+                    key={index}
                     className="border-solid border-1 border-sky-500 hover:text-white hover:bg-[#38588d0a] hover:border-white hover:rounded-sm"
                     style={{ cursor: 'pointer' }}
                   >
@@ -113,16 +113,16 @@ function AccountingDashboardApp(props) {
                     })}
                   </TableRow>
                 ))
-            ) : ( */}
+            ) : (
               <TableSkeleton loadercol={5} loaderrow={5} />
-            {/* )} */}
+            )}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
         rowsPerPageOptions={[25, 50, 100]}
         component="div"
-        // count={usersList.entities.length}
+        count={usersList.entities.length}
         rowsPerPage={rowsPerPage}
         labelRowsPerPage="Сахифадаги маълумотлар сони"
         page={page}

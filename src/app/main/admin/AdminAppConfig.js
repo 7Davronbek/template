@@ -1,4 +1,5 @@
 import { lazy } from 'react';
+import CreateUser from './CreateUser';
 
 const AdminApp = lazy(() => import('./AdminApp'));
 
@@ -13,10 +14,10 @@ const AdminAppConfig = {
       path: 'admin/list',
       element: <AdminApp />,
     },
-    // {
-    //   path: 'admin/create',
-    //   element: <CreateUser />,
-    // },
+    {
+      path: 'admin/create',
+      element: <CreateUser />,
+    },
     // {
     //   path: 'admin/roles',
     //   element: <RolesList />,

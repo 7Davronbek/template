@@ -8,8 +8,16 @@ import SignOutConfig from '../main/sign-out/SignOutConfig';
 import Error404Page from '../main/404/Error404Page';
 import ExampleConfig from '../main/example/ExampleConfig';
 import RoleConfig from '../main/role/RoleConfig';
+import AdminAppConfig from '../main/admin/AdminAppConfig';
 
-const routeConfigs = [ExampleConfig, SignOutConfig, SignInConfig, SignUpConfig, RoleConfig];
+const routeConfigs = [
+  ExampleConfig,
+  SignOutConfig,
+  SignInConfig,
+  SignUpConfig,
+  RoleConfig,
+  AdminAppConfig,
+];
 
 const routes = [
   ...FuseUtils.generateRoutesFromConfigs(routeConfigs, settingsConfig.defaultAuth),

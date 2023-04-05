@@ -20,7 +20,6 @@ import { AuthProvider } from './auth/AuthContext';
 /**
  * Axios HTTP Request defaults
  */
-// axios.defaults.baseURL = 'https://erpapi.ung.uz/';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
 

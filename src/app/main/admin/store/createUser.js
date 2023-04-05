@@ -1,13 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-// import { format } from 'date-fns'
 
 export const createUser = createAsyncThunk(
   "adminOperation/create/createUser",
   async (params) => {
     const response = await axios.post(
-      "http://192.168.90.154:443/api/identity/user/Register",
+      "api/identity/user/Register",
       {
         firstName: "string",
         lastName: "string",

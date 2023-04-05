@@ -14,11 +14,8 @@ import { isEmpty } from 'lodash';
 import { LoadingButton } from '@mui/lab';
 import reducer from './store';
 import { createUser } from './store/createUser';
-import { getUsersToRegister, selectRegisterUsersList } from './store/getUsersToRegister';
+import { getUsersToRegister } from './store/getUsersToRegister';
 
-/**
- * Form Validation Schema
- */
 const schema = yup.object().shape({
   employeeId: yup.number().required('You must enter your name'),
   email: yup

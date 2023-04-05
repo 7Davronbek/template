@@ -7,7 +7,7 @@ export const getUsersToRegister = createAsyncThunk(
   "adminOperation/listregister/getUsersToRegister",
   async () => {
     const response = await axios.post(
-      "http://192.168.90.154:443/api/personal/PersonalData/PersonalEmployees"
+      "api/personal/PersonalData/PersonalEmployees"
     );
 
     const data = await response?.data;

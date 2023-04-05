@@ -16,6 +16,22 @@ const navigationConfig = [
     icon: 'heroicons-outline:star',
     url: 'example',
   },
+  {
+    id: 'Users',
+    title: 'Users',
+    translate: 'Users',
+    type: 'item',
+    icon: 'heroicons-outline:star',
+    url: 'admin/list',
+  },
+  {
+    id: 'Roles',
+    title: 'Roles',
+    translate: 'Roles',
+    type: 'item',
+    icon: 'heroicons-outline:star',
+    url: 'role',
+  },
 ];
 
 export default navigationConfig;
